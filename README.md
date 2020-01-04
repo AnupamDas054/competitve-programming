@@ -1,0 +1,2 @@
+# competitve-programming
+THIS IS A REPOSITORY WHERE ALL CODES  DONE BY ME ARE GIVEN 
