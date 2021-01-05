@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+int n;int arr[200004];
+int subtree[200004];
+int vis[200004];
+vector<int>v[200004];
+void dfs(int s)
+{
+    if(vis[s])
+        return;
+    vis[s]=1;
+    subtree[s]=1;
+    for(auto j:v[s])
+    {
+        dfs(j);
+        subtree[s]+=subtree[j];
+    }
+}
+int main()
+{
+    cin>>n;
+    for(int i=2;i<=n;i++)
+    {
+        int k;cin>>k;
+        v[k].push_back(i);
+        // v[i].push_back(k);
+    }
+    dfs(1);
+    for(int i=1;i<=n;i++)
+        cout<<--subtree[i]<<endl;
+    return 0;
+}
+/*
+5
+1 1 2 3
+
+         1
+        2 3
+       4   5
+*/
