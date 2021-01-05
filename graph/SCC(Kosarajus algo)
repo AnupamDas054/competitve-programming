@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+vector<int>order,scc;
+vector<int>v[100005],tr[100005];
+int vis[100005];
+//dfs call to find the increasing order of finish time of a node
+
+void dfs(int index)
+{
+    vis[index]=1;
+    for(auto it: v[index])
+    {
+        if(vis[it]==0)
+            dfs(it);
+    }
+    order.push_back(index);
+}
+//find scc on transpose graph
+
+void dfs2(int index)
+{
+    vis[index]=1;
+    for(auto it: tr[index])
+    {
+        if(vis[it]==0)
+            dfs2(it);
+    }
+    scc.push_back(index);
+}
+int main()
+{
+    int n,m;cin>>n>>m;
+    for(int i=0;i<m;i++)
+    {
+        int x,y;cin>>x>>y;
+        //main graph with edge
+        v[x].push_back(y);
+        //transpose graph
+        tr[y].push_back(x);
+    }
+    for(int i=1;i<=n;i++)
+    {
+        if(vis[i]==0)
+            dfs(i);
+    }
+    memset(vis,0,sizeof vis);
+    for(int i=order.size()-1;i>=0;i--)
+    {
+        if(vis[order[i]]==0)
+        {
+            printf("Dfs is calling from %d\n",order[i]);
+            dfs2(order[i]);
+            cout<<"The node in this SCC are ";
+            for(int j:scc)
+            {
+                cout<<j<<" ";
+            }
+            cout<<endl;
+            scc.clear();
+        }
+
+    }
+}
