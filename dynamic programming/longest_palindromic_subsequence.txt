@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+int dp[7000][7000];
+string s,s1;
+int n;
+int find_subsequence(int i,int j)
+{
+     if(i==n || j==n)return 0;
+     if(dp[i][j]!=-1) return dp[i][j];
+     int ans=0;
+     if(s[i]==s1[j])
+     {
+            ans=1+find_subsequence(i+1,j+1);
+     }
+     else
+     {
+         int val1=find_subsequence(i+1,j);
+         int val2=find_subsequence(i,j+1);
+         ans=max(val1,val2);
+     }
+     return dp[i][j]=ans;
+}
+
+int main()
+{
+    int t;cin>>t;
+    while(t--)
+    {
+        cin>>s;
+        n=s.size();
+        s1=s;
+        reverse(s.begin(),s.end());
+        int mx=INT_MIN;
+        memset(dp,-1,sizeof dp);
+        cout<<find_subsequence(0,0)<<endl;
+    }
+}
