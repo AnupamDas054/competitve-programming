@@ -1,0 +1,23 @@
+
+bool dfs(int ind,int c)
+{
+
+  vis[ind]=1;col[ind]=c;
+
+  for(auto it:v[ind])
+  {
+    if(vis[it]==0)
+    {
+       if(dfs(it,c^1)==false)
+           return false;
+    }
+     else
+    {
+        if(col[ind]==col[it])
+        {
+          return false;}
+     }
+  }
+  return true;
+}
+
