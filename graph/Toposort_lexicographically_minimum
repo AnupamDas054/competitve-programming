@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,m,x,y,z;
+vector<int>edge[200000];
+int indegree[200000];
+int main()
+{
+    cin>>n>>m;
+    for(int i=1;i<=m;i++)
+    {
+        cin>>x>>y;
+        edge[x].push_back(y);
+        indegree[y]++;
+    }
+    priority_queue<int>pq;
+    for(int i=1;i<=n;i++) if(indegree[i]==0) pq.push(-i);
+    while(pq.size()>0)
+    {
+        int curr= -pq.top();
+        cout<<curr<<" ";
+        pq.pop();
+        for(int i=0;i<edge[curr].size();i++)
+        {
+            int to=edge[curr][i];
+            indegree[to]--;
+            if(indegree[to]==0)
+                pq.push(-to);
+        }
+    }
+    cout<<endl;
+    return 0;
+}
