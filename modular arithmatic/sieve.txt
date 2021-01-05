@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+const int mx=1e5+10;
+bitset<mx>p;
+vector<int>prime;
+
+void seive()
+{
+    p[0]=p[1]=1;
+    for(int i=4;i<mx;i+=2)p[i]=1;
+    prime.push_back(2);
+
+    for(int i=3;i*i<=mx;i+=2)
+    {
+        if(p[i]==0)
+        {
+            for(int j=i*i; j<mx; j+=2*i)
+            {
+                p[j]=1;
+            }
+        }
+    }
+    for(int i=3;i<mx;i+=2)
+    {
+        if(p[i]==0)prime.push_back(i);
+    }
+}
+
+bool arr[100005];
+
+void segment_seive(ll a,ll b)
+{
+    if(a==1)a++;
+    memset(arr,0,sizeof arr);
+    int l=prime.size();
+    for(int i=0; i<l && prime[i]*prime[i]<=b;i++)
+    {
+        ll p=prime[i];
+        ll j=prime[i]*prime[i];
+       // cout<<p<<endl;
+        if(j<a)
+            j=((a+p-1)/p)*p;
+        for(;j<=b;j+=p)
+        {
+            arr[j-a]=1;
+        }
+
+    }
+    for(ll i=a;i<=b;i++)
+    {
+        if(arr[i-a]==0)
+        {
+            cout<<i<<endl;
+        }
+    }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);cin.tie(NULL);cout.tie(NULL);
+    seive();
+    int t;cin>>t;
+    while(t--)
+    {
+        ll m,n;cin>>m>>n;
+        segment_seive(m,n);
+        cout<<endl;
+    }
+}

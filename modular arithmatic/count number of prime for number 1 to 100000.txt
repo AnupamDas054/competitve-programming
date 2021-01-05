@@ -1,0 +1,28 @@
+
+int primediv[100005];
+
+void solve()
+{
+    for(int i=1;i<=100000;i++)
+    {
+        int x=i;
+        for(int j=2;j*j<=x;j++)
+        {
+            if(x%j==0)
+            {
+                while(x%j==0)
+                {
+                    x=x/j;
+                }
+                primediv[i]=1+primediv[x];
+                x=1;
+                break;
+            }
+        }
+        if(x>1)
+            primediv[i]=1;
+    }
+    //for(int i=1;i<=10;i++)
+     //   cout<<primediv[i]<<endl;
+    
+}

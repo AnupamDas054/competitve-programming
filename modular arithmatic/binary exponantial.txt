@@ -1,0 +1,14 @@
+void binary_exp(int n,int p)
+{
+
+   int res=1;
+   while(n)
+   {
+     if(p%2)
+       res*=n;
+       n--;
+     else
+        n*=n;
+        n/=2;
+   }
+}
