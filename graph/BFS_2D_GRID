@@ -1,0 +1,76 @@
+#light oj 1012 -guilty prince
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+string s[30];
+int dirx[]={0,0,-1,1};
+int diry[]={-1,1,0,0};
+int r,c;
+queue<pair<int,int> >q;
+int visited[30][30];
+int bfs()
+{
+    for(int i=0;i<r;i++)
+    {
+        for(int j=0;j<c;j++){
+            if(s[i][j]=='@'){
+           q.push({i,j});
+           visited[i][j]=1;
+            break;
+            }
+        }
+    }
+ 
+    int x1,y1;
+ 
+    int ans=1;
+    while(q.size()>0){
+        pair<int,int>k1=q.front();
+ 
+        int x=k1.first;
+        int y=k1.second;
+        //cout<<x<<" "<<y<<endl;
+        q.pop();
+    for(int k=0;k<4;k++ )
+    {
+        x1=x+dirx[k];
+        y1=y+diry[k];
+        if(x1>=0 && x1<r && y1>=0 && y1<c)
+        {
+            if(s[x1][y1]=='.'){
+             if(visited[x1][y1]==0){
+            q.push({x1,y1});
+            ans++;
+            visited[x1][y1]=1;
+             }
+            }
+        }
+    }
+    }
+    return ans;
+}
+ 
+int main()
+{
+    int t;
+    cin>>t;
+    for(int i=1;i<=t;i++)
+    {
+ 
+        cin>>c>>r;
+ 
+        for(int j=0;j<r;j++)
+            cin>>s[j];
+ 
+        cout<<"Case "<<i<<": "<<bfs()<<endl;
+        for(int j=0;j<r;j++)
+        {
+            for(int k1=0;k1<c;k1++)
+                visited[j][k1]=0;
+        }
+    }
+ 
+ 
+}
+ 
