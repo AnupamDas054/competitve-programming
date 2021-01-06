@@ -1,0 +1,49 @@
+//Spoj-----> MILK SCHEDULING 
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+struct JOB
+{
+    int profit,dead;
+};
+
+bool comp(JOB a, JOB b)
+{
+
+    return a.profit>b.profit;
+
+}
+
+int main()
+{
+
+    int n;cin>>n;
+    JOB arr[n+4];
+    int slot[10004]={0};
+
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i].profit>>arr[i].dead;
+    }
+    sort(arr,arr+n,comp);
+    long long int cnt=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=arr[i].dead-1;j>=0;j--)
+        {
+            if(slot[j]==0)
+            {
+                slot[j]=1;
+                //cout<<arr[i].profit<<" ";
+                cnt+=arr[i].profit;
+                break;
+            }
+        }
+    }
+   // cout<<endl;
+    cout<<cnt<<endl;
+    return 0;
+}
