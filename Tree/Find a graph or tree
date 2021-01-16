@@ -1,0 +1,74 @@
+///////////////////////////////////////
+Reversible Cards(Atcoder)
+
+
+
+/////////////////////////////////////
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+vector<int>adj[400006];
+bool vis[400005];
+map<int,int>m;
+set<int>st;
+int istree;
+void dfs(int node, int par)
+{
+  //  cout<<node<<endl;
+    if(vis[node])
+    {
+        istree=0;
+        return ;
+    }
+    st.insert(node);
+    vis[node]=1;
+ 
+    for(auto g: adj[node])
+    {
+        if(par==g)continue;
+        dfs(g,node);
+    }
+ 
+}
+ 
+int main()
+{
+    cin>>n;
+    int c=1;
+    for(int i=0;i<n;i++)
+    {
+        int u,v;cin>>u>>v;
+        if(m.find(u)==m.end())
+        {
+            m[u]=c++;
+        }
+        if(m.find(v)==m.end())
+            m[v]=c++;
+        adj[m[u]].push_back(m[v]);
+        adj[m[v]].push_back(m[u]);
+    }
+    int ans=0;
+ 
+    for(int i=1;i<c;i++)
+    {
+        if(vis[i])
+            continue;
+        istree=1;//suppose this is a tree
+        st.clear();
+        dfs(i,-1);
+        if(st.size()){
+        if(istree)//yeah i am sure this is a tree
+        {
+            ans+=st.size()-1;
+        }
+        else
+            ans+=st.size();//it is  a graph
+        }
+ 
+    }
+    cout<<ans<<endl;
+}
