@@ -33,7 +33,7 @@
             {
                 if(i==0 || j==0)
                 {
-                    ED[i][j]=max(i,j);
+                    ED[i][j]=max(i,j);// if one string is null , i need to take other strings whole length
                 }
                 else
                 {
