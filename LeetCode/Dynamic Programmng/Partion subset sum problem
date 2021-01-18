@@ -1,0 +1,95 @@
+/* 
+Given a non-empty array nums containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+
+Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+   
+   
+   
+   
+*/
+   
+//////////////////////////////////////////////memeroy and runtime complexity(O(N*SUM))/////////////////////////////////////////////////////
+
+ bool canPartition(vector<int>& nums) {
+        int total=0;
+        for(int i=0;i<nums.size();i++)
+            total+=nums[i];
+        if(total%2)
+          return false;
+        else
+        {
+            int target = total/2;
+            int sz= nums.size();
+            bool dp[sz+1][target+1];
+            dp[0][0]=true;
+            for(int i=0;i<=target;i++)
+                dp[0][i]=false;
+            for(int i=0;i<sz;i++)
+            {
+                for(int j=0;j<=target;j++)
+                {
+                    if(j==0)
+                        dp[i][0]=true;
+                    else
+                    {
+                        if(j<nums[i])
+                            dp[i+1][j]=dp[i][j];
+                        else
+                         dp[i+1][j]=dp[i][j]||dp[i][j-nums[i]];
+                        
+                    }
+                }
+            }
+            return dp[sz][target];
+
+        }
+    }
+    
+    
+    
+    
+    
+    //////////////////////////////////////////////////////////////Space complexity(O(Sum))://////////////////////////////////////////////////////////////////////////////////
+    //if array is in random order , then we need to sort
+    
+      bool canPartition(vector<int>& nums) {
+        int sz= nums.size();
+    int total=0;
+    for(int i=0;i<sz;i++)
+        total+=nums[i];
+    if(total%2)
+    {
+        return false;
+    }
+    else{
+
+        int sum=total/2;
+        bool dp[sum+1];
+        for(int i=1;i<=sum;i++)dp[i]=false;
+
+        dp[0]=true;
+
+        for(int i=0;i<sz;i++)
+        {
+
+            for(int j=sum;j>=nums[i];j--)
+            {
+                dp[j]=dp[j] || dp[j-nums[i]];
+                //cout<<j<<" "<<dp[j]<<endl;
+            }
+        }
+        return dp[sum];
+    }
+
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
