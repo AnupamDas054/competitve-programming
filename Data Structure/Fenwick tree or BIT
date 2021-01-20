@@ -1,0 +1,55 @@
+
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+#define mx 100000
+
+int arr[mx];
+int tree[mx];
+
+int query(int idx)
+{
+    int sum=0;
+    while(idx>0)
+    {
+        sum=sum+tree[idx];
+        idx-=(idx & -idx);
+
+    }
+    return sum;
+}
+
+void update(int idx , int val , int n)
+{
+    while(idx<=n)
+    {
+        tree[idx]+=val;
+        idx+=(idx & -idx);
+    }
+ 
+}
+
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    cin>>n;
+    for(int i=1;i<=n;++i)
+    {
+        cin>>arr[i];
+        update(i,arr[i],n);//tree build is same as update. suppose input 5 in index 2 means add 5 in the index 2.
+    }
+    
+    for(int i=1;i<=n;i++){
+        cout<<tree[i]<<" ";
+    }
+    cout<<endl;
+    update(5,3,n);//update an integer 
+    cout<<query(5)<<endl;//sum between 1 to 5 
+}
