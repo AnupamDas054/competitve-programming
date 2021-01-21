@@ -1,0 +1,26 @@
+//curr to des path exists or not
+
+
+vector<int>adj[100000];
+bool visited[100000];
+
+bool find_path(int curr, int des)
+{
+    if(curr==des)
+        return true;
+    visited[curr]=true;
+    bool found =false;
+    for(int adjacent_vertex:adj[curr])
+    {
+        if(visited[adjacent_vertex])
+        {
+            continue;
+        }
+        if(find_path(adjacent_vertex,des)
+        {
+        found true;
+        }
+    }
+    return found;
+
+}
