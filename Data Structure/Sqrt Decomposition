@@ -1,0 +1,80 @@
+
+//Sum finding in the range
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int segment[10000];
+int n;
+int arr[100000];
+int segment_size;
+
+void  process()
+{
+
+    int currSegment =-1;
+    segment_size =sqrt(n);
+    for(int i=0;i<n;i++)
+    {
+        if(i%segment_size==0)
+        {
+            currSegment++;
+        }
+        segment[currSegment]+=arr[i];//it will for summing operation
+
+    }
+
+}
+
+int query(int l,int r)
+{
+    int sum=0;
+    //for the first segment which can be suffix;
+    while(l<r && l%segment_size!=0)
+    {
+        sum+=arr[l];
+        l++;
+    }
+    //for middle block
+    while(l+segment_size<=r)
+    {
+        sum+=segment[l/segment_size];
+        l+=segment_size;
+    }
+
+    while(l<=r)
+    {
+        sum+=arr[l];
+        l++;
+    }
+    return sum;
+
+
+}
+void update(int i, int val)
+{
+    
+    int segment_no=i/segment_size;
+    segment[segment_no]-=arr[i];
+    segment[segment_no]+=val;
+    arr[i]=val;
+}
+
+
+
+int main()
+{
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    process();
+    int q;cin>>q;
+    while(q--)
+    {
+        int l,r;cin>>l>>r;
+        cout<<query(l,r)<<endl;
+    }
+}
